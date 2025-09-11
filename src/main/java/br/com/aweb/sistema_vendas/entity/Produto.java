@@ -40,4 +40,7 @@ public class Produto {
     @NotNull(message = "A quantidade é obrigatório")
     @Column(nullable = false)
     private Integer quantidadeEmEstoque;
+
+    public Produto() {
+    }
 }
