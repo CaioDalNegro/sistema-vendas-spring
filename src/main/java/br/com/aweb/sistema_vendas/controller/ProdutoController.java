@@ -22,18 +22,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ProdutoController {
     
     @Autowired
-    ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
     // Criar ----------------------------------->
     @GetMapping("/novo")
     public ModelAndView criarProduto() {
-        return new ModelAndView("form", Map.of("produto", new Produto()));
+        return new ModelAndView("produto/form", Map.of("produto", new Produto()));
     }
 
     @PostMapping("/novo")
     public String criarProduto(@Valid Produto produto, BindingResult result) {
         if(result.hasErrors())
-            return "form";
+            return "produto/form";
         produtoRepository.save(produto);
             return "redirect:/produto";
     }

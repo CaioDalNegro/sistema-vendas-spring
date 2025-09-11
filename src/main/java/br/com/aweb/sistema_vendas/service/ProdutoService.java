@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 public class ProdutoService {
     
     @Autowired
-    ProdutoRepository produtoRepository;
+    private ProdutoRepository produtoRepository;
 
     // Listar Produto ------------->
     public List<Produto> listarProduto(){
