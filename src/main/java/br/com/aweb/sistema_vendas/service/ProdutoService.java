@@ -1,11 +1,12 @@
 package br.com.aweb.sistema_vendas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.aweb.sistema_vendas.entity.Produto;
+import br.com.aweb.sistema_vendas.model.Produto;
 import br.com.aweb.sistema_vendas.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 
@@ -25,12 +26,37 @@ public class ProdutoService {
     public Produto criarProduto(Produto produto){
         return produtoRepository.save(produto);
     }
+    // Alterar ---------------------->
+    @Transactional
+    public Produto atualizar(Long id, Produto produtoAtualizado){
+        var optionalProduto =  buscarPorId(id);
 
+        if (!optionalProduto.isPresent())
+            throw new IllegalArgumentException("Produto não encontrado.");
+
+        var produtoExistente = optionalProduto.get();
+
+        produtoExistente.setNome(produtoAtualizado.getNome());
+        produtoExistente.setDescricao(produtoAtualizado.getDescricao());
+        produtoExistente.setPreco(produtoAtualizado.getPreco());
+        produtoExistente.setQuantidadeEmEstoque(produtoAtualizado.getQuantidadeEmEstoque());
+
+        return produtoRepository.save(produtoExistente);
+    }
 
     // Excluir produto------------------------------->
-    public void deletarProduto(Long id){
-        if(!produtoRepository.existsById(id))
-            throw new RuntimeException("produto não encontrado!");
+    @Transactional
+    public void excluir(Long id){
+        var optionalProduto =  buscarPorId(id);
+
+        if (!optionalProduto.isPresent())
+            throw new IllegalArgumentException("Produto não encontrado.");
+
         produtoRepository.deleteById(id);
     }
+
+    public Optional<Produto> buscarPorId(Long id){
+        return produtoRepository.findById(id);
+    }
+
 }
