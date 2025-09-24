@@ -5,6 +5,7 @@ import br.com.aweb.sistema_vendas.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -23,8 +24,8 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente buscarPorId(Long id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    public Optional <Cliente> buscarPorId(Long id) {
+        return clienteRepository.findById(id);
     }
 
     public void excluir(Long id) {

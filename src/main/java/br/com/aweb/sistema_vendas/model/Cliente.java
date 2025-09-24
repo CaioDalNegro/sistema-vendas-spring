@@ -25,7 +25,6 @@ public class Cliente {
     private String email;
 
     @NotBlank(message = "O CPF é obrigatório")
-    @Pattern(regexp = "\\d{11}", message = "CPF deve conter 11 dígitos")
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
@@ -33,13 +32,12 @@ public class Cliente {
     @Column(nullable = false, length = 20)
     private String telefone;
 
-    // Endereço
     @NotBlank(message = "O logradouro é obrigatório")
     private String logradouro;
 
-    private String numero; // opcional
+    private String numero;
 
-    private String complemento; // opcional
+    private String complemento;
 
     @NotBlank(message = "O bairro é obrigatório")
     private String bairro;
@@ -52,6 +50,5 @@ public class Cliente {
     private String uf;
 
     @NotBlank(message = "O CEP é obrigatório")
-    @Pattern(regexp = "\\d{8}", message = "CEP deve conter 8 dígitos")
     private String cep;
 }
