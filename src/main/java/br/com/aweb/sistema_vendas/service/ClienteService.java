@@ -1,7 +1,11 @@
 package br.com.aweb.sistema_vendas.service;
 
 import br.com.aweb.sistema_vendas.model.Cliente;
+import br.com.aweb.sistema_vendas.model.Produto;
 import br.com.aweb.sistema_vendas.repository.ClienteRepository;
+import jakarta.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,24 +14,32 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
-    private final ClienteRepository clienteRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
-    public ClienteService(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
+    // Criar e Salvar Cliente --------------->
+    @Transactional
+    public Cliente salvar(Cliente cliente){
+        if (clienteRepository.existsByEmail(cliente.getEmail())) {
+            throw new IllegalArgumentException("E-mail ja cadastrado");
+        }
+        if (clienteRepository.existsByCpf(cliente.getCpf())) {
+            throw new IllegalArgumentException("CPF ja cadastrado");
+        }
+        Cliente clienteSalvo = clienteRepository.save(cliente);
+        return clienteSalvo;
     }
 
+    // Listar Cliente ---------------------->
     public List<Cliente> listarTodos() {
         return clienteRepository.findAll();
-    }
-
-    public Cliente salvar(Cliente cliente) {
-        return clienteRepository.save(cliente);
     }
 
     public Optional <Cliente> buscarPorId(Long id) {
         return clienteRepository.findById(id);
     }
 
+    // Deletar Cliente ----------------------->
     public void excluir(Long id) {
         clienteRepository.deleteById(id);
     }

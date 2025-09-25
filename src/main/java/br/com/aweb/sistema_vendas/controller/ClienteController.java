@@ -1,7 +1,6 @@
 package br.com.aweb.sistema_vendas.controller;
 
 import br.com.aweb.sistema_vendas.model.Cliente;
-import br.com.aweb.sistema_vendas.model.Produto;
 import br.com.aweb.sistema_vendas.service.ClienteService;
 import jakarta.validation.Valid;
 
@@ -68,9 +67,8 @@ public class ClienteController {
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(Produto produto) {
-
-        clienteService.excluir(produto.getId());
+    public String delete(Cliente cliente) {
+        clienteService.excluir(cliente.getId());
         return "redirect:/clientes";
     }
 }

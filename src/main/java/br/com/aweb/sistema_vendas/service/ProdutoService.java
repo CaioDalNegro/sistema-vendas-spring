@@ -12,25 +12,29 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ProdutoService {
-    
-    @Autowired
-    private ProdutoRepository produtoRepository;
 
-    // Listar Produto ------------->
-    public List<Produto> listarProduto(){
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    // CREATE
+    @Transactional
+    public Produto salvar(Produto produto) {
+        return produtoRepository.save(produto);
+    }
+
+    // READ
+    public List<Produto> listarTodos() {
         return produtoRepository.findAll();
     }
 
-    // Criar Produto --------------->
-    @Transactional
-    public Produto criarProduto(Produto produto){
-        return produtoRepository.save(produto);
+    public Optional<Produto> buscarPorId(Long id) {
+        return produtoRepository.findById(id);
     }
-    // Alterar ---------------------->
-    @Transactional
-    public Produto atualizar(Long id, Produto produtoAtualizado){
-        var optionalProduto =  buscarPorId(id);
 
+    // UPDATE
+    @Transactional
+    public Produto atualizar(Long id, Produto produtoAtualizado) {
+        var optionalProduto = buscarPorId(id);
         if (!optionalProduto.isPresent())
             throw new IllegalArgumentException("Produto não encontrado.");
 
@@ -41,22 +45,19 @@ public class ProdutoService {
         produtoExistente.setPreco(produtoAtualizado.getPreco());
         produtoExistente.setQuantidadeEmEstoque(produtoAtualizado.getQuantidadeEmEstoque());
 
-        return produtoRepository.save(produtoExistente);
+        var produtoSalvo = produtoRepository.save(produtoExistente);
+        return produtoSalvo;
+
     }
 
-    // Excluir produto------------------------------->
+    // DELETE
     @Transactional
-    public void excluir(Long id){
-        var optionalProduto =  buscarPorId(id);
-
+    public void excluir(Long id) {
+        var optionalProduto = buscarPorId(id);
         if (!optionalProduto.isPresent())
             throw new IllegalArgumentException("Produto não encontrado.");
 
         produtoRepository.deleteById(id);
-    }
-
-    public Optional<Produto> buscarPorId(Long id){
-        return produtoRepository.findById(id);
     }
 
 }

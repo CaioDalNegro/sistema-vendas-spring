@@ -1,5 +1,7 @@
 package br.com.aweb.sistema_vendas.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -26,6 +28,8 @@ public class Cliente {
 
     @NotBlank(message = "O CPF é obrigatório")
     @Column(nullable = false, length = 11, unique = true)
+    @CPF(message = "CPF invalido")
+    @Size(min = 11, max = 11, message = "CPF deve ter 11 digitos")
     private String cpf;
 
     @NotBlank(message = "O telefone é obrigatório")
@@ -33,16 +37,18 @@ public class Cliente {
     private String telefone;
 
     @NotBlank(message = "O logradouro é obrigatório")
+    @Column(nullable = false)
     private String logradouro;
 
     private String numero;
-
     private String complemento;
 
     @NotBlank(message = "O bairro é obrigatório")
+    @Column(nullable = false)
     private String bairro;
 
     @NotBlank(message = "A cidade é obrigatória")
+    @Column(nullable = false)
     private String cidade;
 
     @NotBlank(message = "A UF é obrigatória")
@@ -50,5 +56,6 @@ public class Cliente {
     private String uf;
 
     @NotBlank(message = "O CEP é obrigatório")
+    @Column(nullable = false)
     private String cep;
 }

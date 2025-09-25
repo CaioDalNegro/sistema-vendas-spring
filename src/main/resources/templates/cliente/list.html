@@ -35,7 +35,10 @@
                 </td>
                 <td>
                     <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn btn-warning btn-sm">Editar</a>
-                    <a class="btn btn-sm btn-danger" th:href="@{/clientes/delete/{id}(id=${cliente.id})}">Excluir</a>
+                    <a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" 
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Deseja realmente excluir?');">Excluir</a>
+                    <!-- <a class="btn btn-sm btn-danger" th:href="@{/clientes/excluir/{id}(id=${cliente.id})}">Excluir</a> -->
                 </td>
             </tr>
         </tbody>

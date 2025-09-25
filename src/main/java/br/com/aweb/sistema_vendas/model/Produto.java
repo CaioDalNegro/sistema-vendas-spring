@@ -14,35 +14,34 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
-@Data
 @Table(name = "produtos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome é obrigatório")
+    @NotBlank(message = "Nome é obrigatório")
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @NotBlank(message = "A descrição é obrigatório")
+    @NotBlank(message = "Descrição é obrigatória")
     @Column(nullable = false, length = 255)
     private String descricao;
 
-    @Positive(message = "O preço deve ser positivo")
-    @NotNull(message = "O preço deve ser obrigatório")
+    @NotNull(message = "Preço é obrigatório.")
+    @Positive(message = "O valor deve ser maior que zero.")
     @Column(nullable = false)
     private BigDecimal preco;
 
-    @PositiveOrZero(message = "A quantidade deve ser maior ou igual a zero")
-    @NotNull(message = "A quantidade é obrigatório")
-    @Column(nullable = false)
+    @NotNull(message = "Quantidade é obrigatório.")
+    @PositiveOrZero(message = "O valor deve ser maior ou igual a zero.")
     private Integer quantidadeEmEstoque;
-
-    public Produto() {
-    }
+    
 }
