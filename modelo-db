@@ -1,0 +1,40 @@
+Table clientes {
+  id bigint [pk, increment]
+  nomeCompleto varchar(150) [not null]
+  email varchar(100) [unique, not null]
+  cpf varchar(14) [unique, not null]
+  telefone varchar(20) [not null]
+  logradouro varchar(150) [not null]
+  numero varchar(20)
+  complemento varchar(100)
+  bairro varchar(100) [not null]
+  cidade varchar(100) [not null]
+  uf varchar(2) [not null]
+  cep varchar(9) [not null]
+}
+
+Table produtos {
+  id bigint [pk, increment]
+  nome varchar(100) [not null]
+  descricao varchar(255) [not null]
+  preco decimal [not null]
+  quantidadeEmEstoque int [not null]
+  version integer
+}
+
+Table pedidos {
+  id bigint [pk, increment]
+  cliente_id bigint [ref: > clientes.id]
+  data_pedido timestamp [not null]
+  valor_total decimal [not null]
+  status varchar(50) [not null]
+  version integer
+}
+
+Table itens_pedido {
+  id bigint [pk, increment]
+  pedido_id bigint [ref: > pedidos.id]
+  produto_id bigint [ref: > produtos.id]
+  quantidade int [not null]
+  preco_unitario decimal [not null]
+}

@@ -1,7 +1,6 @@
 package br.com.aweb.sistema_vendas.service;
 
 import br.com.aweb.sistema_vendas.model.Cliente;
-import br.com.aweb.sistema_vendas.model.Produto;
 import br.com.aweb.sistema_vendas.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
 
