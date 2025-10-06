@@ -2,9 +2,18 @@ package br.com.aweb.sistema_vendas.model;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "clientes")
@@ -12,50 +21,51 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome completo é obrigatório")
-    @Column(nullable = false, length = 150)
-    private String nomeCompleto;
+    @NotBlank(message = "Nome é obrigatório.")
+    @Column(nullable = false)
+    private String nome;
 
-    @Email(message = "E-mail deve ser válido")
-    @NotBlank(message = "O e-mail é obrigatório")
-    @Column(nullable = false, length = 100, unique = true)
+    @NotBlank(message = "E-mail é obrigatório.")
+    @Email(message = "E-mail inválido.")
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "O CPF é obrigatório")
-    @Column(nullable = false, length = 11, unique = true)
-    @CPF(message = "CPF invalido")
-    @Size(min = 11, max = 11, message = "CPF deve ter 11 digitos")
+    @NotBlank(message = "CPF é obrigatório.")
+    @CPF(message = "CPF inválido")
+    @Size(min = 11, max = 11, message = "CPF deve ter 11 dígitos.")
+    @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @NotBlank(message = "O telefone é obrigatório")
-    @Column(nullable = false, length = 20)
+    @NotBlank(message = "Telefone é obrigatório.")
+    @Column(nullable = false)
     private String telefone;
 
-    @NotBlank(message = "O logradouro é obrigatório")
+    @NotBlank(message = "Logradouro é obrigatório.")
     @Column(nullable = false)
     private String logradouro;
 
     private String numero;
     private String complemento;
 
-    @NotBlank(message = "O bairro é obrigatório")
+    @NotBlank(message = "Bairro é obrigatório.")
     @Column(nullable = false)
     private String bairro;
 
-    @NotBlank(message = "A cidade é obrigatória")
+    @NotBlank(message = "Cidade é obrigatório.")
     @Column(nullable = false)
     private String cidade;
 
-    @NotBlank(message = "A UF é obrigatória")
-    @Size(min = 2, max = 2, message = "UF deve ter 2 caracteres")
+    @NotBlank(message = "UF é obrigatório")
+    @Size(min = 2, max = 2, message = "UF deve ter 2 caracteres.")
+    @Column(nullable = false, length = 2)
     private String uf;
 
-    @NotBlank(message = "O CEP é obrigatório")
+    @NotBlank(message = "CEP é obrigatório")
     @Column(nullable = false)
     private String cep;
+
 }

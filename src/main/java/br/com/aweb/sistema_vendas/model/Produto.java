@@ -43,5 +43,5 @@ public class Produto {
     @NotNull(message = "Quantidade é obrigatório.")
     @PositiveOrZero(message = "O valor deve ser maior ou igual a zero.")
     private Integer quantidadeEmEstoque;
-    
+
 }
