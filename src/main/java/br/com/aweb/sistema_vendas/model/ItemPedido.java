@@ -10,15 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "itens_pedido")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class ItemPedido {
 
@@ -28,23 +25,25 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
-    private Pedido pedido;
+    private Pedido pedido; // Relacionamento com Pedido
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    private Produto produto;
+    private Produto produto; // Relacionamento com Produto
 
-    @NotNull
     @Column(nullable = false)
     private Integer quantidade;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precoUnitario;
 
+    // Construtor padrão
+    public ItemPedido() {}
+
+    // Construtor personalizado
     public ItemPedido(Produto produto, Integer quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
-        this.precoUnitario = produto.getPreco();
+        this.precoUnitario = produto.getPreco(); // Assume que Produto tem um getPreco()
     }
 }

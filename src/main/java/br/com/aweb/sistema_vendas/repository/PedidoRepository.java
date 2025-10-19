@@ -1,5 +1,13 @@
 package br.com.aweb.sistema_vendas.repository;
 
-public class PedidoRepository {
-    
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.aweb.sistema_vendas.model.Pedido;
+import br.com.aweb.sistema_vendas.model.StatusPedido;
+
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+    // Método para buscar uma lista de pedidos por Status
+    List<Pedido> findByStatus(StatusPedido status);
 }
