@@ -2,13 +2,19 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Listagem de Clientes</title>
+    <title>Listagem de Produtos</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-4">
     <h1>Produtos</h1>
-    <a class="btn btn-primary mb-3" th:href="@{/produtos/novo}">Novo Produto</a>
+
+    <!-- BOTÕES ADICIONADOS -->
+    <div class="mb-3 d-flex gap-2">
+        <a class="btn btn-secondary" th:href="@{/clientes}">Clientes</a>
+        <a class="btn btn-secondary" th:href="@{/pedidos}">Pedidos</a>
+        <a class="btn btn-primary ms-auto" th:href="@{/produtos/novo}">Novo Produto</a>
+    </div>
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -24,7 +30,6 @@
         <tr th:each="produto : ${produtos}">
             <td th:text="${produto.nome}"></td>
             <td th:text="${produto.descricao}"></td>
-            <!-- <td th:text="${produto.preco}"></td> -->
             <td th:text="${#numbers.formatCurrency(produto.preco)}"></td>
             <td th:text="${produto.quantidadeEmEstoque}"></td>
             <td>
@@ -35,6 +40,7 @@
         </tbody>
     </table>
 </div>
+
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

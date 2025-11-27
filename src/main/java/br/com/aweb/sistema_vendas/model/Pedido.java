@@ -33,28 +33,28 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @NotNull(message = "Cliente é obrigatório")
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
-
+    
     @Column(nullable = false)
     private LocalDateTime dataPedido = LocalDateTime.now();
-
+    
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal = BigDecimal.ZERO;
-
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private StatusPedido status = StatusPedido.ATIVO;
-
+    
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
-
+    
     @Version
     private Long version;
-
+    
     // Construtor personalizado
     public Pedido(Cliente cliente) {
         this.cliente = cliente;

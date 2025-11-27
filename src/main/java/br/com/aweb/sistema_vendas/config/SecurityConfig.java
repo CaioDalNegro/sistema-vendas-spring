@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .defaultSuccessUrl("/clientes", true)
+                .defaultSuccessUrl("/produtos", true)
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Pedido</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <h1>Novo Pedido</h1>
+
+    <!-- Navegação -->
+    <div class="mb-3 d-flex gap-2">
+        <a class="btn btn-secondary" th:href="@{/clientes}">Clientes</a>
+        <a class="btn btn-secondary" th:href="@{/produtos}">Produtos</a>
+        <a class="btn btn-secondary" th:href="@{/pedidos}">Pedidos</a>
+
+        <form th:action="@{/logout}" method="post" class="ms-auto">
+            <button type="submit" class="btn btn-outline-danger btn-sm">Sair</button>
+        </form>
+    </div>
+
+    <form th:action="@{/pedidos/novo}" method="post">
+        <div class="mb-3">
+            <label for="clienteId" class="form-label">Selecione o Cliente</label>
+            <select class="form-select" id="clienteId" name="clienteId" required>
+                <option value="">-- Selecione um cliente --</option>
+                <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.id}"
+                        th:text="${cliente.nome + ' - ' + cliente.cpf}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Criar Pedido</button>
+        <a th:href="@{/pedidos}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
